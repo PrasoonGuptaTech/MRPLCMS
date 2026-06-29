@@ -17,7 +17,7 @@ pre-commit:
 
     - name: Formatting Files
       run: |
-        npx prettier -- write {staged_files}
+        npx prettier --write {staged_files}
         git add {staged_files}
 
     - name: Check Merge Conflicts
