@@ -1,0 +1,38 @@
+Implement LeftHook Implementation
+
+- Install the package
+    npm install --save-dev lefthook
+
+- Initialize LeftHook
+    npx lefthook install
+
+- Add Script (Optional)
+    {
+        "scripts": {
+            "postinstall": "lefthook install"
+        }
+    }
+
+- Create lefthook.yml file
+    Add mutiple data based on your preferences
+
+- Commit Meeage
+    Add Commit Message LeftHook
+
+- Install Commitlint
+    npm install --save-dev @commitlint/cli @commitlint/config-conventional
+
+- Create Commintlint.config.js
+    module.exports = {
+  extends: ['@commitlint/config-conventional'],
+};
+
+- Create scripts/validateCommitMessage.js file to validate the commit Message
+    Add content based on your preferences, Ref added in this project
+
+- Commit Lint in New Jobs
+    Add Commintlint as a new Jobs
+
+- Precautions **
+     - Please add commitLint as a different Jobs
+     - Please run prettier command before pushing any code,   npx prettier --write .
