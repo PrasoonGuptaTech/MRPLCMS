@@ -1,0 +1,16 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+#
+pre-push:
+  parallel: false
+  jobs:
+    - name: Push Testing
+      run: echo "Push Testing...."
+
+pre-commit:
+  parallel: false
+  jobs:
+    - name: Commit Testing
+      run: echo "Commit Testing...."
