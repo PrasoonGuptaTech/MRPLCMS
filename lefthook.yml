@@ -15,6 +15,20 @@ pre-commit:
     - name: Commit Testing
       run: echo "Commit Testing...."
 
+    - name: Formatting Files
+      run: |
+        npx prettier -- write {staged_files}
+        git add {staged_files}
+
+    - name: Check Merge Conflicts
+      run: |
+        if git diff --check; then
+          exit 0
+        else
+          echo "Merge Conflicts detected"
+          exit 1
+        fi
+
     - name: prettier
       run: npx prettier --check "{staged_files}"
       glob: '*.{js,ts,jsx,tsx,css,scss,md}'
