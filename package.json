@@ -40,6 +40,7 @@
     "lefthook": "^2.1.9",
     "prettier": "2.8.8",
     "react-test-renderer": "19.2.3",
+    "sonarqube-scanner": "^4.3.8",
     "typescript": "^5.8.3"
   },
   "engines": {
