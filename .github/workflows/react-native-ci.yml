@@ -29,6 +29,15 @@ jobs:
       - name: Run Test Coverage
         run: npm run test -- --coverage
 
+      - name: Verify Sonar Secret
+        run: |
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "SONAR_TOKEN is EMPTY"
+            exit 1
+          else
+            echo "SONAR_TOKEN exists"
+          fi
+
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -37,11 +46,17 @@ jobs:
           npx sonar-scanner \
             -Dsonar.projectKey=mrplCMSProject \
             -Dsonar.sources=. \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.exclusions=**/node_modules/** \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
-      - name: Sonarqube Quality Gate
-        uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
-        timeout-minutes: 5
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
