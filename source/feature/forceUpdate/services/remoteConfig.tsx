@@ -10,7 +10,11 @@ export const checkForUpdate = async () => {
     minimum_ios_version: '1.0.0',
     update_message: 'Please update your app.',
   });
-  await remoteConfig().fetchAndActivate();
+  await remoteConfig().setConfigSettings({
+    minimumFetchIntervalMillis: 0,
+  });
+  const updated = await remoteConfig().fetchAndActivate();
+  console.log('updated', updated);
 
   const forceUpdate = remoteConfig()
     .getValue('force_update_required')
