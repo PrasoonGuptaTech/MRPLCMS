@@ -1,18 +1,18 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../../features/home/pages/homeScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeStackNavigator from '../homeStack/homeStackNavigator';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function AppNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Tab.Navigator>
+      <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackNavigator}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 }
 
