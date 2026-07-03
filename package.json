@@ -11,6 +11,8 @@
     "postinstall": "lefthook install"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^25.1.0",
+    "@react-native-firebase/remote-config": "^25.1.0",
     "@react-native/new-app-screen": "0.86.0",
     "react": "19.2.3",
     "react-native": "0.86.0",
