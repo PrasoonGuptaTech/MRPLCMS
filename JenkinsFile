@@ -5,6 +5,12 @@ pipeline {
         nodejs 'Node23'
     }
 
+    environment {
+        ANDROID_HOME = "/Users/prasoongupta/Library/Android/sdk"
+        ANDROID_SDK_ROOT = "/Users/prasoongupta/Library/Android/sdk"
+        PATH = "${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/latest/bin:${env.PATH}"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -24,6 +30,16 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'npm test -- --watchAll=false'
+            }
+        }
+
+        stage('Check Android SDK') {
+            steps {
+                sh '''
+                    echo "ANDROID_HOME=$ANDROID_HOME"
+                    echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+                    ls -la $ANDROID_HOME
+                '''
             }
         }
 
