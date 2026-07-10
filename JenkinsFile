@@ -6,9 +6,9 @@ pipeline {
     }
 
     environment {
-        ANDROID_HOME = "/Users/prasoongupta/Library/Android/sdk"
-        ANDROID_SDK_ROOT = "/Users/prasoongupta/Library/Android/sdk"
-        PATH = "${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/latest/bin:${env.PATH}"
+        ANDROID_HOME = "/opt/android-sdk"
+        ANDROID_SDK_ROOT = "/opt/android-sdk"
+        PATH = "${ANDROID_HOME}/platform-tools:${env.PATH}"
     }
 
     stages {
