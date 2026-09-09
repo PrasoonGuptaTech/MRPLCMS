@@ -1,0 +1,6 @@
+projectKey=mrplCMSProject
+serverUrl=https://sonar.mrplpras.com
+serverVersion=9.9.4.87374
+dashboardUrl=https://sonar.mrplpras.com/dashboard?id=mrplCMSProject
+ceTaskId=AZ8Y0ru2YYNcztd9a7hx
+ceTaskUrl=https://sonar.mrplpras.com/api/ce/task?id=AZ8Y0ru2YYNcztd9a7hx
