@@ -23,13 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     reactNativeFactory = factory
 
     window = UIWindow(frame: UIScreen.main.bounds)
+    FirebaseApp.configure()
 
     factory.startReactNative(
       withModuleName: "mrplCMS",
       in: window,
       launchOptions: launchOptions
     )
-    FirebaseApp.configure()
     return true
   }
 }

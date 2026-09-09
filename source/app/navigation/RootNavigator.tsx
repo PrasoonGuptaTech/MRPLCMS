@@ -7,32 +7,38 @@ import type { RootTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
+const tabScreenOptions = {
+  headerShown: false,
+  lazy: true,
+  freezeOnBlur: true,
+  tabBarActiveTintColor: colors.primary,
+  tabBarInactiveTintColor: colors.muted,
+  tabBarLabelStyle: typography.tabLabel,
+} as const;
+
+const homeTabOptions = {
+  tabBarLabel: 'Dashboard',
+  tabBarIcon: HomeTabIcon,
+} as const;
+
+const profileTabOptions = { tabBarLabel: 'Profile' } as const;
+
 function HomeTabIcon({ color }: { color: string }) {
   return <HomeIcon width={18} height={18} color={color} />;
 }
 
 export default function RootNavigator() {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.muted,
-        tabBarLabelStyle: typography.tabLabel,
-      }}
-    >
+    <Tab.Navigator screenOptions={tabScreenOptions}>
       <Tab.Screen
         name="HomeTab"
         component={HomeStackNavigator}
-        options={{
-          tabBarLabel: 'Dashboard',
-          tabBarIcon: HomeTabIcon,
-        }}
+        options={homeTabOptions}
       />
       <Tab.Screen
         name="ProfileTab"
         component={ProfileStackNavigator}
-        options={{ tabBarLabel: 'Profile' }}
+        options={profileTabOptions}
       />
     </Tab.Navigator>
   );

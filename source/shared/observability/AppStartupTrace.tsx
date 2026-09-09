@@ -10,6 +10,7 @@ export function AppStartupTrace() {
     startupTrace
       .start()
       .then(() => {
+        if (!active) return;
         frame = requestAnimationFrame(() => {
           frame = requestAnimationFrame(() => {
             if (active) startupTrace.stop();
@@ -17,7 +18,12 @@ export function AppStartupTrace() {
         });
       })
       .catch(error => {
-        console.warn('Unable to record application startup performance', error);
+        if (__DEV__) {
+          console.warn(
+            'Unable to record application startup performance',
+            error,
+          );
+        }
       });
 
     return () => {
