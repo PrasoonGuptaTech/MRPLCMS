@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'Node23'
+    }
+
+    environment {
+        ANDROID_HOME = "/opt/android-sdk"
+        ANDROID_SDK_ROOT = "/opt/android-sdk"
+        PATH = "${ANDROID_HOME}/platform-tools:${env.PATH}"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test -- --watchAll=false'
+            }
+        }
+
+        stage('Check Android SDK') {
+            steps {
+                sh '''
+                    echo "ANDROID_HOME=$ANDROID_HOME"
+                    echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+                    ls -la $ANDROID_HOME
+                '''
+            }
+        }
+
+        stage('Build Android') {
+            steps {
+                dir('android') {
+                    sh './gradlew assembleDebug'
+                }
+            }
+        }
+    }
+}

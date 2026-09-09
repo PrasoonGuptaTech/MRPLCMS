@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "lefthook install"
+    "postinstall": "if [ -z \"$JENKINS_HOME\" ]; then lefthook install; fi"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.3.2",
