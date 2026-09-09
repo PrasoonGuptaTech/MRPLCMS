@@ -6,19 +6,17 @@
 pre-push:
   parallel: false
   jobs:
-    - name: Push Testing
-      run: echo "Push Testing...."
+    - name: Validate branch
+      run: npm run validate
 
 pre-commit:
   parallel: false
   jobs:
-    - name: Commit Testing
-      run: echo "Commit Testing...."
-
     - name: Formatting Files
       run: |
         npx prettier --write {staged_files}
         git add {staged_files}
+      glob: '*.{js,json,ts,tsx,jsx,css,scss,md,yml,yaml}'
 
     - name: Check Merge Conflicts
       run: |
@@ -28,10 +26,6 @@ pre-commit:
           echo "Merge Conflicts detected"
           exit 1
         fi
-
-    - name: prettier
-      run: npx prettier --check "{staged_files}"
-      glob: '*.{js,ts,jsx,tsx,css,scss,md}'
 
     - name: eslint
       run: npx eslint "{staged_files}"

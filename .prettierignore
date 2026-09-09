@@ -1,0 +1,16 @@
+node_modules/
+coverage/
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+ios/build/
+ios/Pods/
+vendor/
+*.pbxproj
+*.plist
+*.properties
+*.gradle
+*.lock
+*.keystore
+*.jar

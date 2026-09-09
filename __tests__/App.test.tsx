@@ -16,6 +16,14 @@ jest.mock('../source/features/force-update/components/ForceUpdateGate', () => ({
   ForceUpdateGate: () => null,
 }));
 
+jest.mock('../source/shared/observability/AppStartupTrace', () => ({
+  AppStartupTrace: () => null,
+}));
+
+jest.mock('../source/shared/errors/AppErrorBoundary', () => ({
+  AppErrorBoundary: ({ children }: { children: React.ReactNode }) => children,
+}));
+
 test('renders correctly', async () => {
   await ReactTestRenderer.act(() => {
     ReactTestRenderer.create(<App />);

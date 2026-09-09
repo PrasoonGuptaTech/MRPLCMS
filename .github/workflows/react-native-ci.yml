@@ -1,4 +1,4 @@
-name: Dev
+name: Pull Request Quality Gate
 on:
   push:
     branches:
@@ -7,9 +7,16 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    name: Dev Build
+    name: Quality and tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -25,11 +32,23 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Validate PR Title
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | npx commitlint
+
+      - name: Check Formatting
+        run: npm run format:check
+
       - name: Run Lint
-        run: npm run lint
+        run: npm run lint -- --max-warnings=0
+
+      - name: Run TypeScript
+        run: npm run typecheck
 
       - name: Run Test Coverage
-        run: npm run test -- --coverage
+        run: npm run test:ci
 
       - name: Verify Sonar Secret
         run: |
@@ -45,3 +64,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: SonarQube Quality Gate
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: Build Android Debug
+        working-directory: android
+        run: ./gradlew assembleDebug

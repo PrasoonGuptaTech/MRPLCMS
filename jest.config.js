@@ -14,6 +14,12 @@ module.exports = {
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation)/)',
   ],
   coverageThreshold: {
+    global: {
+      branches: 50,
+      functions: 50,
+      lines: 50,
+      statements: 50,
+    },
     'source/features/force-update/utils/compareVersions.ts': {
       branches: 90,
       functions: 100,

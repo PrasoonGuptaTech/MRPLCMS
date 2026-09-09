@@ -72,6 +72,12 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+def releaseKeystorePath = project.findProperty("MRPL_RELEASE_STORE_FILE")
+def hasReleaseSigning = releaseKeystorePath != null &&
+        project.hasProperty("MRPL_RELEASE_STORE_PASSWORD") &&
+        project.hasProperty("MRPL_RELEASE_KEY_ALIAS") &&
+        project.hasProperty("MRPL_RELEASE_KEY_PASSWORD")
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -92,17 +98,33 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        if (hasReleaseSigning) {
+            release {
+                storeFile file(releaseKeystorePath)
+                storePassword project.property("MRPL_RELEASE_STORE_PASSWORD")
+                keyAlias project.property("MRPL_RELEASE_KEY_ALIAS")
+                keyPassword project.property("MRPL_RELEASE_KEY_PASSWORD")
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    if (!hasReleaseSigning && task.name in ["assembleRelease", "bundleRelease"]) {
+        task.doFirst {
+            throw new GradleException("Release signing credentials are not configured. See docs/RELEASING.md.")
         }
     }
 }

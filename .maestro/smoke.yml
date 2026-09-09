@@ -1,0 +1,9 @@
+appId: com.mrplcms
+name: Application smoke test
+---
+- launchApp:
+    clearState: true
+- assertVisible: Dashboard
+- assertVisible: Home
+- tapOn: Profile
+- assertVisible: Profile

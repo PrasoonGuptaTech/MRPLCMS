@@ -1,0 +1,10 @@
+appId: com.mrplcms
+name: Primary navigation E2E
+---
+- launchApp:
+    clearState: true
+- assertVisible: Home
+- tapOn: Profile
+- assertVisible: Profile
+- tapOn: Dashboard
+- assertVisible: Home

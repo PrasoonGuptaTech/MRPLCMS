@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   Button,
   Linking,
   Modal,
@@ -25,7 +26,16 @@ export function ForceUpdateGate() {
         {updateUrl ? (
           <Button
             title="Update now"
-            onPress={() => Linking.openURL(updateUrl)}
+            onPress={async () => {
+              try {
+                await Linking.openURL(updateUrl);
+              } catch {
+                Alert.alert(
+                  'Unable to open the store',
+                  'Please update the app directly from your device app store.',
+                );
+              }
+            }}
           />
         ) : (
           <Button title="Check again" onPress={retry} disabled={loading} />

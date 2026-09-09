@@ -5,6 +5,9 @@ PODS:
   - Firebase/Crashlytics (12.15.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 12.15.0)
+  - Firebase/Performance (12.15.0):
+    - Firebase/CoreOnly
+    - FirebasePerformance (~> 12.15.0)
   - Firebase/RemoteConfig (12.15.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 12.15.0)
@@ -32,6 +35,16 @@ PODS:
     - GoogleUtilities/Environment (~> 8.1)
     - GoogleUtilities/UserDefaults (~> 8.1)
     - PromisesObjC (~> 2.4)
+  - FirebasePerformance (12.15.0):
+    - FirebaseCore (~> 12.15.0)
+    - FirebaseInstallations (~> 12.15.0)
+    - FirebaseRemoteConfig (~> 12.15.0)
+    - FirebaseSessions (~> 12.15.0)
+    - GoogleDataTransport (~> 10.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/MethodSwizzler (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
+    - nanopb (~> 3.30910.0)
   - FirebaseRemoteConfig (12.15.0):
     - FirebaseABTesting (~> 12.15.0)
     - FirebaseCore (~> 12.15.0)
@@ -58,6 +71,9 @@ PODS:
     - GoogleUtilities/Privacy
   - GoogleUtilities/Logger (8.1.0):
     - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/MethodSwizzler (8.1.0):
+    - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - "GoogleUtilities/NSData+zlib (8.1.0)":
     - GoogleUtilities/Privacy
@@ -2037,6 +2053,30 @@ PODS:
     - ReactNativeDependencies
     - RNFBApp
     - Yoga
+  - RNFBPerf (25.1.0):
+    - Firebase/Performance (= 12.15.0)
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - RNFBApp
+    - Yoga
   - RNFBRemoteConfig (25.1.0):
     - Firebase/RemoteConfig (= 12.15.0)
     - hermes-engine
@@ -2258,6 +2298,7 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - "RNFBPerf (from `../node_modules/@react-native-firebase/perf`)"
   - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -2273,6 +2314,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebasePerformance
     - FirebaseRemoteConfig
     - FirebaseRemoteConfigInterop
     - FirebaseSessions
@@ -2443,6 +2485,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBCrashlytics:
     :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFBPerf:
+    :path: "../node_modules/@react-native-firebase/perf"
   RNFBRemoteConfig:
     :path: "../node_modules/@react-native-firebase/remote-config"
   RNGestureHandler:
@@ -2463,6 +2507,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 6ab6a02c94446c026d2cf35cf5383842ebaa4992
   FirebaseCrashlytics: 87e76cc33259b076dd1f96cd829db76849338e08
   FirebaseInstallations: eb29ccbf64eaedf86fd5b2ccc7fabde567660b52
+  FirebasePerformance: 4817b556f47b991e8cd42761ec47d6c31150b037
   FirebaseRemoteConfig: d8b57e994277aabef7cca708e671ce676eefed7a
   FirebaseRemoteConfigInterop: 7e3d57ce4b1e958bb1d15403faa7178f46bbb5b7
   FirebaseSessions: acfe7eadca47cda94ac86592737204581bb1abf6
@@ -2550,12 +2595,13 @@ SPEC CHECKSUMS:
   RNDeviceInfo: d79872e11c8e9c4de0d65b0ee6e0cee719f37fea
   RNFBApp: ed845aeb52ca478b897c9abe711ebdafbfff24db
   RNFBCrashlytics: 1bde1d40c99d3b3ca089651029f18f45f6cbe88b
+  RNFBPerf: 9746234838e604f2a05beb276ddcf96fdb65585a
   RNFBRemoteConfig: b7240654c178e68818776255e7b1143ffc56e1a7
   RNGestureHandler: ef19613372e4c87374fe9494862e366d82d1852c
   RNScreens: 032083414633a4d94cbcf08f8ab5019d72d1ba36
   RNSVG: ffe18ba0e8fbad864bf22d6f0060a4ee88ec9bf3
-  Yoga: fe50ab299e578f397fef753cf309c6703a4db29b
+  Yoga: 94172d87dd5d83fc929bf1ee53121b5d4490b5f2
 
 PODFILE CHECKSUM: a7855da9738dff9f7dafa97b96971915d52ff4b8
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
