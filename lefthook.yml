@@ -1,44 +1,33 @@
-# EXAMPLE USAGE:
-#
-#   Refer for explanation to following link:
-#   https://lefthook.dev/configuration/
-#
 pre-push:
   parallel: false
   jobs:
-    - name: Validate branch
+    - name: Full quality gate
       run: npm run validate
 
 pre-commit:
   parallel: false
   jobs:
-    - name: Formatting Files
-      run: |
-        npx prettier --write {staged_files}
-        git add {staged_files}
+    - name: Format staged files
+      run: npx prettier --write {staged_files}
       glob: '*.{js,json,ts,tsx,jsx,css,scss,md,yml,yaml}'
+      stage_fixed: true
 
-    - name: Check Merge Conflicts
-      run: |
-        if git diff --check; then
-          exit 0
-        else
-          echo "Merge Conflicts detected"
-          exit 1
-        fi
+    - name: Check staged whitespace and conflict markers
+      run: git diff --cached --check
 
-    - name: eslint
-      run: npx eslint "{staged_files}"
+    - name: Lint staged files
+      run: npx eslint --max-warnings=0 {staged_files}
       glob: '*.{js,ts,tsx,jsx}'
 
-    - name: typecheck
-      run: npx tsc --noEmit
+    - name: Type-check project
+      run: npm run typecheck
       glob: '*.{ts,tsx}'
+
+    - name: Test related files
+      run: npx jest --runInBand --no-watchman --passWithNoTests --findRelatedTests {staged_files}
+      glob: '*.{js,ts,tsx,jsx}'
 
 commit-msg:
   jobs:
-    - name: Validate Commit message
-      run: node scripts/validateCommitMessage.js {1}
-
-    - name: commit message
+    - name: Validate Conventional Commit message
       run: npx commitlint --edit {1}

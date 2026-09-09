@@ -6,7 +6,7 @@
 | Code optimization    | Lightweight composition, release profiling workflow, startup trace | Establish device baselines per release                |
 | Code quality         | TypeScript, ESLint, Prettier, Jest, Commitlint, error boundary     | Review remaining upstream dependency advisories       |
 | CI/CD                | GitHub Actions and Jenkins quality/build pipelines                 | Configure secrets, agents, and required checks        |
-| Pre-commit           | Formatting, conflict, lint, and type checks                        | Developers must allow Lefthook installation           |
+| Pre-commit           | Formatting, staged diff, lint, type, and related-test checks       | Developers must allow Lefthook installation           |
 | Pre-push             | Full `npm run validate` gate                                       | Keep runtime aligned with Node 22                     |
 | PR hook              | PR CI and Conventional Commit title validation                     | Enable GitHub branch protection                       |
 | Unit tests           | Pure utilities and observability helpers                           | Add tests with every behavior change                  |
