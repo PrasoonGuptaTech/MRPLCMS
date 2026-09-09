@@ -1,22 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import MainNavigation from './source/navigation/main/mainNavigation';
 
 function App() {
   return (
     <SafeAreaProvider>
-      <View style={styles.container}>
-        <Text>App</Text>
-      </View>
+      <NavigationContainer>
+        <MainNavigation />
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default App;
