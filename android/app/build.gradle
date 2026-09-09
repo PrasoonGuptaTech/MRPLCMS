@@ -88,8 +88,8 @@ android {
         applicationId "com.mrplcms"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.0"
+        versionCode (project.findProperty("MRPL_VERSION_CODE") ?: "1").toInteger()
+        versionName project.findProperty("MRPL_VERSION_NAME") ?: "1.0.0"
     }
     signingConfigs {
         debug {
