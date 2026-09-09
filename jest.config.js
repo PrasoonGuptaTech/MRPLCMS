@@ -2,13 +2,23 @@ module.exports = {
   preset: '@react-native/jest-preset',
   setupFilesAfterEnv: ['<rootDir>/jest/setup.js'],
   collectCoverage: true,
-  collectCoverageFrom: [],
+  collectCoverageFrom: [
+    'source/**/*.{ts,tsx}',
+    '!source/**/*.d.ts',
+    '!source/**/index.ts',
+  ],
+  moduleNameMapper: {
+    '\\.(svg)$': '<rootDir>/jest/svgMock.js',
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation)/)',
+  ],
   coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+    'source/features/force-update/utils/compareVersions.ts': {
+      branches: 90,
+      functions: 100,
+      lines: 100,
+      statements: 100,
     },
   },
 };
