@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "702736682877",
+    "project_id": "mrplcms",
+    "storage_bucket": "mrplcms.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702736682877:android:6c8cc5993eed3331e9c614",
+        "android_client_info": {
+          "package_name": "com.mrplcms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeuspFe9kAZAJW9l-oYW0xs8UWGsl6qMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
