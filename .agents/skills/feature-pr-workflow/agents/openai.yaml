@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Feature PR Workflow'
+  short_description: 'Deliver repository changes through a branch and PR'
+  default_prompt: 'Use $feature-pr-workflow to implement this change on a new branch and open a pull request to main.'
