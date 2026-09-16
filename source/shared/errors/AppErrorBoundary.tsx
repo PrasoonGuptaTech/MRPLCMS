@@ -1,10 +1,11 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   getCrashlytics,
   recordError,
 } from '@react-native-firebase/crashlytics';
-import { colors } from '../theme';
+import { Button } from '../components/Button';
+import { colors, typography } from '../theme';
 
 type Props = { children: ReactNode };
 type State = { hasError: boolean };
@@ -36,7 +37,7 @@ export class AppErrorBoundary extends Component<Props, State> {
         <Text style={styles.message}>
           Please try loading the application again.
         </Text>
-        <Button title="Try again" onPress={this.retry} />
+        <Button label="Try again" onPress={this.retry} />
       </View>
     );
   }
@@ -50,6 +51,11 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: colors.surface,
   },
-  title: { color: colors.text, fontSize: 24, fontWeight: '700' },
-  message: { color: colors.text, marginVertical: 16, textAlign: 'center' },
+  title: { ...typography.heading, color: colors.text },
+  message: {
+    ...typography.body,
+    color: colors.text,
+    marginVertical: 16,
+    textAlign: 'center',
+  },
 });

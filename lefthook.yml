@@ -24,7 +24,7 @@ pre-commit:
       glob: '*.{ts,tsx}'
 
     - name: Test related files
-      run: npx jest --runInBand --no-watchman --passWithNoTests --findRelatedTests {staged_files}
+      run: npx jest --runInBand --no-watchman --passWithNoTests --coverage=false --findRelatedTests {staged_files}
       glob: '*.{js,ts,tsx,jsx}'
 
 commit-msg:
