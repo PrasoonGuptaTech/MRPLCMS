@@ -7,6 +7,11 @@ name: Login validation and recovery
 - assertVisible: Enter a valid email address.
 - assertVisible: Enter your password.
 - tapOn: Forgot password?
+- assertVisible: Reset your password
+- tapOn: Send reset link
+- assertVisible: Enter a valid email address.
+- inputText: devendra@studio.com
+- tapOn: Send reset link
 - assertVisible: Password recovery unavailable
 - tapOn: OK
 - assertVisible: Sign in

@@ -5,6 +5,8 @@
 - [CMS 2026 screens](https://www.figma.com/design/LIK3D30I3NxjancTZeDmS4/CMS-2026?node-id=0-1)
 - [Design system](https://www.figma.com/design/LIK3D30I3NxjancTZeDmS4/CMS-2026?node-id=1-2)
 - [Admin Login — Default](https://www.figma.com/design/LIK3D30I3NxjancTZeDmS4/CMS-2026?node-id=1-312)
+- Onboarding flow — Admin Login (Default, Invalid Password), Reset Password (Email
+  Entry, Sending Reset Link)
 
 ## First integration
 
@@ -22,15 +24,26 @@ Keyboard avoidance, scrolling, safe areas, and font scaling keep the form usable
 on smaller devices. The outer device frame and simulated status icons belong to
 the Figma presentation; the app uses the native status bar instead.
 
-Authentication and password recovery services are not implemented. Valid input
-shows an availability message and does not grant access to the app. The existing
+Authentication and password recovery services are not implemented. The password
+field checks input against the literal demo value "portfolio" — the exact string
+called out in the Figma "Invalid Password" state — purely to reproduce that
+error state and its `Sign in` happy path; matching it still only reaches the same
+"Sign-in unavailable" message; it never grants access to the app. The existing
 home/profile navigator is retained as `MainTabs` for future authenticated routing.
-Connect a real session service before enabling that route; do not use a local
-credential check or unconditional navigation as authentication.
+Connect a real session service before enabling that route; do not treat the demo
+password or unconditional navigation as real authentication.
+
+"Forgot password?" opens `ResetPasswordScreen`. Submitting a valid email shows a
+`Sending…` loading state on the button and then the same "Password recovery
+unavailable" message as before, returning to the login screen — no email is
+actually sent.
 
 ## Assets
 
 Mail and lock SVGs are exact exports from login nodes `1:338` and `1:347`.
+`ChevronLeft.svg` is a hand-authored stroke icon (the Figma vector export was
+unavailable for this pass) sized to match; re-export it from the source node if
+exact fidelity is needed.
 Figtree Regular, Medium, and SemiBold are bundled from the
 [official Figtree repository](https://github.com/erikdkennedy/figtree), with the
 SIL Open Font License in `source/assets/fonts/OFL.txt`. iOS references the source
@@ -40,6 +53,8 @@ A native rebuild is required after changing fonts.
 
 ## Validation
 
-Run `npm run validate`. Component tests cover form validation, recovery messaging,
-secure password entry, and disabled/loading controls. The Maestro flows cover the
-new launch screen and validation/recovery paths; run them against an installed app.
+Run `npm run validate`. Component tests cover form validation, the demo-password
+error state, reset-password sending state, recovery messaging, secure password
+entry, and disabled/loading controls. The Maestro flows cover the launch screen
+and the full validation/recovery path through the reset password screen; run
+them against an installed app.
