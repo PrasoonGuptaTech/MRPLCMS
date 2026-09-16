@@ -1,10 +1,12 @@
 appId: com.mrplcms
-name: Primary navigation E2E
+name: Login validation and recovery
 ---
 - launchApp:
     clearState: true
-- assertVisible: Home
-- tapOn: Profile
-- assertVisible: Profile
-- tapOn: Dashboard
-- assertVisible: Home
+- tapOn: Sign in
+- assertVisible: Enter a valid email address.
+- assertVisible: Enter your password.
+- tapOn: Forgot password?
+- assertVisible: Password recovery unavailable
+- tapOn: OK
+- assertVisible: Sign in

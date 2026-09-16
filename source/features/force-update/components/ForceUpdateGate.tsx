@@ -1,14 +1,14 @@
 import {
   ActivityIndicator,
   Alert,
-  Button,
   Linking,
   Modal,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { colors } from '../../../shared/theme';
+import { Button } from '../../../shared/components/Button';
+import { colors, typography } from '../../../shared/theme';
 import { useForceUpdate } from '../hooks/useForceUpdate';
 
 export function ForceUpdateGate() {
@@ -25,7 +25,7 @@ export function ForceUpdateGate() {
         <Text style={styles.message}>{message}</Text>
         {updateUrl ? (
           <Button
-            title="Update now"
+            label="Update now"
             onPress={async () => {
               try {
                 await Linking.openURL(updateUrl);
@@ -38,7 +38,7 @@ export function ForceUpdateGate() {
             }}
           />
         ) : (
-          <Button title="Check again" onPress={retry} disabled={loading} />
+          <Button label="Check again" onPress={retry} disabled={loading} />
         )}
       </View>
     </Modal>
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.surface,
   },
-  title: { color: colors.text, fontSize: 24, fontWeight: '700' },
+  title: { ...typography.heading, color: colors.text },
   message: {
     color: colors.text,
-    fontSize: 16,
+    ...typography.body,
     marginTop: 12,
     textAlign: 'center',
   },
