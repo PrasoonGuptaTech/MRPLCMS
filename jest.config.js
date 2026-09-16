@@ -11,7 +11,7 @@ module.exports = {
     '\\.(svg)$': '<rootDir>/jest/svgMock.js',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-native-gesture-handler|react-native-screens|react-native-safe-area-context)/)',
   ],
   coverageThreshold: {
     global: {

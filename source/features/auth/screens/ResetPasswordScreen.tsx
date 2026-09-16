@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   Alert,
   Keyboard,
@@ -8,14 +8,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import ChevronLeftIcon from '../../../assets/svg/ChevronLeft.svg';
 import MailIcon from '../../../assets/svg/Mail.svg';
-import LockIcon from '../../../assets/svg/Lock.svg';
 import { Button } from '../../../shared/components/Button';
 import { TextField } from '../../../shared/components/TextField';
 import {
@@ -27,35 +26,34 @@ import {
 } from '../../../shared/theme';
 import type { RootStackParamList } from '../../../app/navigation/types';
 
-const DEMO_PASSWORD = 'portfolio';
+type Navigation = StackNavigationProp<RootStackParamList, 'ResetPassword'>;
 
-type Navigation = StackNavigationProp<RootStackParamList, 'Login'>;
-
-export default function LoginScreen() {
+export default function ResetPasswordScreen() {
   const navigation = useNavigation<Navigation>();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const passwordInput = useRef<TextInput>(null);
+  const [sending, setSending] = useState(false);
   const emailError = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
     ? 'Enter a valid email address.'
     : undefined;
-  const passwordError = !password
-    ? 'Enter your password.'
-    : password !== DEMO_PASSWORD
-    ? `Incorrect password — use “${DEMO_PASSWORD}”.`
-    : undefined;
-  function signIn() {
+
+  function sendResetLink() {
     setSubmitted(true);
-    if (emailError || passwordError) {
+    if (emailError) {
       return;
     }
     Keyboard.dismiss();
-    Alert.alert(
-      'Sign-in unavailable',
-      'Sign-in is not available yet. Please try again later.',
-    );
+    setSending(true);
+    setTimeout(() => {
+      setSending(false);
+      Alert.alert(
+        'Password recovery unavailable',
+        'Password recovery is not available yet. Please contact your administrator.',
+        [{ text: 'OK', onPress: () => navigation.goBack() }],
+      );
+    }, 900);
   }
+
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
@@ -68,16 +66,25 @@ export default function LoginScreen() {
           contentContainerStyle={styles.scroll}
         >
           <View style={styles.content}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Go back"
+              hitSlop={13}
+              style={styles.header}
+              onPress={() => navigation.goBack()}
+            >
+              <ChevronLeftIcon width={17} height={17} />
+              <Text style={styles.headerTitle}>Reset password</Text>
+            </Pressable>
             <View>
               <View style={styles.logo} accessible={false}>
                 <Text style={styles.logoText}>D</Text>
               </View>
               <Text accessibilityRole="header" style={styles.title}>
-                {'Portfolio\nManager'}
+                {'Reset your\npassword'}
               </Text>
               <Text style={styles.description}>
-                Everything your visitors see — home, work, career and contact —
-                edited here and published when you’re ready.
+                We’ll email a secure link to the address on your account.
               </Text>
             </View>
             <View style={styles.form}>
@@ -92,36 +99,17 @@ export default function LoginScreen() {
                 autoCorrect={false}
                 autoComplete="email"
                 textContentType="username"
-                returnKeyType="next"
-                submitBehavior="submit"
-                onSubmitEditing={() => passwordInput.current?.focus()}
+                returnKeyType="send"
+                onSubmitEditing={sendResetLink}
+                editable={!sending}
                 error={submitted ? emailError : undefined}
               />
-              <TextField
-                ref={passwordInput}
-                label="Password"
-                icon={<LockIcon width={17} height={17} />}
-                value={password}
-                onChangeText={setPassword}
-                placeholder="••••••••"
-                secureTextEntry
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="current-password"
-                textContentType="password"
-                returnKeyType="go"
-                onSubmitEditing={signIn}
-                error={submitted ? passwordError : undefined}
+              <Button
+                label={sending ? 'Sending…' : 'Send reset link'}
+                size="login"
+                loading={sending}
+                onPress={sendResetLink}
               />
-              <Pressable
-                accessibilityRole="button"
-                hitSlop={13}
-                style={styles.forgot}
-                onPress={() => navigation.navigate('ResetPassword')}
-              >
-                <Text style={styles.forgotText}>Forgot password?</Text>
-              </Pressable>
-              <Button label="Sign in" size="login" onPress={signIn} />
             </View>
           </View>
         </ScrollView>
@@ -140,8 +128,21 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 480,
     alignSelf: 'center',
-    paddingTop: 96,
+    paddingTop: spacing.lg,
     gap: spacing.lg,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    alignSelf: 'flex-start',
+    minHeight: spacing.xl,
+  },
+  headerTitle: {
+    fontFamily: fonts.semibold,
+    fontSize: 17,
+    lineHeight: 22,
+    color: colors.text,
   },
   logo: {
     width: 46,
@@ -164,6 +165,4 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   form: { gap: 15 },
-  forgot: { alignSelf: 'flex-end', minHeight: 18, justifyContent: 'center' },
-  forgotText: { ...typography.label, color: colors.muted },
 });

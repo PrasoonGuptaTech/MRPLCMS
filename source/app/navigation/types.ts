@@ -7,4 +7,7 @@ export type RootTabParamList = {
   ProfileTab: NavigatorScreenParams<ProfileStackParamList>;
 };
 
-export type RootStackParamList = { Login: undefined };
+export type RootStackParamList = {
+  Login: undefined;
+  ResetPassword: undefined;
+};
