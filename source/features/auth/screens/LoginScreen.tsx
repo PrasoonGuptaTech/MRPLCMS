@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -51,10 +50,7 @@ export default function LoginScreen() {
       return;
     }
     Keyboard.dismiss();
-    Alert.alert(
-      'Sign-in unavailable',
-      'Sign-in is not available yet. Please try again later.',
-    );
+    navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
   }
   return (
     <SafeAreaView style={styles.screen}>

@@ -18,8 +18,12 @@ export const colors = {
   primary: '#FAFAFA',
   primaryPressed: '#E4E5E7',
   success: '#6EE7A8',
+  successBackground: '#12211A',
+  successBorder: '#16281F',
   warning: '#E9B87A',
   error: '#F98A8A',
+  avatar: '#22242A',
+  skeleton: '#131418',
 } as const;
 export const spacing = {
   xs: 6,

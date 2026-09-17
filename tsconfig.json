@@ -3,6 +3,11 @@
   "compilerOptions": {
     "types": ["jest"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "source/types/svg/svg.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "source/types/svg/svg.d.ts",
+    "source/types/png/png.d.ts"
+  ],
   "exclude": ["**/node_modules", "**/Pods"]
 }
