@@ -97,6 +97,89 @@ export const QUICK_ACTIONS: QuickAction[] = [
   { key: 'upload-resume', label: 'Upload resume', Icon: ActionUploadResume },
 ];
 
+export type ProjectStatus = 'published' | 'draft';
+
+export type Project = {
+  id: string;
+  name: string;
+  owner: string;
+  itemCount: number;
+  editedLabel: string;
+  status: ProjectStatus;
+  tags: string[];
+  initials: string;
+  recent: boolean;
+};
+
+export const PROJECTS: Project[] = [
+  {
+    id: 'nameless-portfolio',
+    name: 'Nameless Portfolio',
+    owner: 'Prasoon',
+    itemCount: 34,
+    editedLabel: 'edited 2 days ago',
+    status: 'published',
+    tags: ['portfolio', 'personal'],
+    initials: 'NP',
+    recent: true,
+  },
+  {
+    id: 'meridian-case-studies',
+    name: 'Meridian Case Studies',
+    owner: 'Meridian Bank',
+    itemCount: 12,
+    editedLabel: 'edited 1 week ago',
+    status: 'published',
+    tags: ['fintech', 'case study'],
+    initials: 'MC',
+    recent: true,
+  },
+  {
+    id: 'aperture-design-system-docs',
+    name: 'Aperture Design System Docs',
+    owner: 'Aperture Labs',
+    itemCount: 21,
+    editedLabel: 'edited 3 weeks ago',
+    status: 'draft',
+    tags: ['design system', 'docs'],
+    initials: 'AD',
+    recent: true,
+  },
+  {
+    id: 'kettle-and-co-storefront',
+    name: 'Kettle & Co. Storefront',
+    owner: 'Kettle & Co.',
+    itemCount: 8,
+    editedLabel: 'edited 2 months ago',
+    status: 'published',
+    tags: ['commerce', 'editorial'],
+    initials: 'KC',
+    recent: false,
+  },
+  {
+    id: 'lumen-health-companion',
+    name: 'Lumen Health Companion — concept work in progress',
+    owner: 'Lumen Health',
+    itemCount: 5,
+    editedLabel: 'edited yesterday',
+    status: 'draft',
+    tags: ['health', 'concept'],
+    initials: 'LH',
+    recent: false,
+  },
+  {
+    id: 'northwind-studio-archive',
+    name: 'Northwind Studio Archive',
+    owner: 'Northwind Studio',
+    itemCount: 17,
+    editedLabel: 'edited 5 months ago',
+    status: 'draft',
+    tags: ['archive', 'agency'],
+    initials: 'NS',
+    recent: false,
+  },
+];
+
 export type ActivityItem = {
   key: string;
   label: string;
