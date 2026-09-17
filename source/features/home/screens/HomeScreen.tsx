@@ -8,12 +8,12 @@ import { ProfileCard } from '../components/ProfileCard';
 import { PortfolioPagesSection } from '../components/PortfolioPagesSection';
 import { QuickActionsSection } from '../components/QuickActionsSection';
 import { RecentActivitySection } from '../components/RecentActivitySection';
-import { INITIAL_ACTIVITY } from '../data';
+import { SwitchProjectSheet } from '../components/SwitchProjectSheet';
+import { INITIAL_ACTIVITY, PROJECTS } from '../data';
 import type { ActivityItem } from '../data';
 import ActivityPublish from '../../../assets/svg/ActivityPublish.svg';
 import { colors, spacing } from '../../../shared/theme';
 
-const PROJECT_NAME = 'Nameless Portfolio';
 const DOMAIN = 'devendra.design';
 const ITEM_COUNT = 34;
 
@@ -24,6 +24,15 @@ export default function HomeScreen() {
   const [unsavedCount, setUnsavedCount] = useState(3);
   const [lastPublishedLabel, setLastPublishedLabel] = useState('');
   const [activity, setActivity] = useState<ActivityItem[]>(INITIAL_ACTIVITY);
+  const [switchSheetVisible, setSwitchSheetVisible] = useState(false);
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(
+    PROJECTS[0].id,
+  );
+
+  const activeProject = PROJECTS.find(
+    project => project.id === activeProjectId,
+  );
+  const projectName = activeProject?.name ?? 'Untitled';
 
   useEffect(() => {
     const timer = setTimeout(() => setStatus('unsaved'), 900);
@@ -38,7 +47,7 @@ export default function HomeScreen() {
       setActivity(current => [
         {
           key: `published-${Date.now()}`,
-          label: `Published “${PROJECT_NAME}”`,
+          label: `Published “${projectName}”`,
           timestamp: 'Just now',
           Icon: ActivityPublish,
         },
@@ -55,6 +64,16 @@ export default function HomeScreen() {
     );
   }
 
+  function selectProject(id: string) {
+    setActiveProjectId(id);
+    setSwitchSheetVisible(false);
+  }
+
+  function createProject() {
+    setActiveProjectId(null);
+    setSwitchSheetVisible(false);
+  }
+
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <ScrollView
@@ -66,11 +85,11 @@ export default function HomeScreen() {
         ) : (
           <View style={styles.content}>
             <HomeHeader
-              projectName={PROJECT_NAME}
+              projectName={projectName}
               domain={DOMAIN}
               itemCount={ITEM_COUNT}
               initials="DD"
-              onSwitchProject={() => unavailable('Switching projects')}
+              onSwitchProject={() => setSwitchSheetVisible(true)}
               onSearch={() => unavailable('Search')}
               onAccount={() => unavailable('Account')}
             />
@@ -97,6 +116,14 @@ export default function HomeScreen() {
           </View>
         )}
       </ScrollView>
+      <SwitchProjectSheet
+        visible={switchSheetVisible}
+        projects={PROJECTS}
+        activeProjectId={activeProjectId}
+        onClose={() => setSwitchSheetVisible(false)}
+        onSelectProject={selectProject}
+        onCreateProject={createProject}
+      />
     </SafeAreaView>
   );
 }
