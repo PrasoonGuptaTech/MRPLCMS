@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../../features/auth/screens/LoginScreen';
 import ResetPasswordScreen from '../../features/auth/screens/ResetPasswordScreen';
+import SessionExpiredScreen from '../../features/auth/screens/SessionExpiredScreen';
 import { colors } from '../../shared/theme';
 import type { RootStackParamList } from './types';
 
@@ -15,6 +16,11 @@ export default function RootNavigator() {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+      <Stack.Screen
+        name="SessionExpired"
+        component={SessionExpiredScreen}
+        options={{ gestureEnabled: false }}
+      />
     </Stack.Navigator>
   );
 }
