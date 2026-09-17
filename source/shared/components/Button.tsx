@@ -6,7 +6,7 @@ type Props = Omit<PressableProps, 'children' | 'style'> & {
   label: string;
   variant?: 'primary' | 'secondary' | 'ghost' | 'destructive';
   loading?: boolean;
-  size?: 'default' | 'login';
+  size?: 'default' | 'login' | 'compact';
 };
 
 export function Button({
@@ -28,6 +28,7 @@ export function Button({
         styles.base,
         styles[variant],
         size === 'login' && styles.login,
+        size === 'compact' && styles.compact,
         pressed &&
           (variant === 'primary' ? styles.primaryPressed : styles.pressed),
         unavailable && styles.disabled,
@@ -42,6 +43,7 @@ export function Button({
         style={[
           typography.button,
           styles.text,
+          size === 'compact' && styles.compactText,
           variant === 'primary' && styles.primaryText,
           variant === 'destructive' && styles.destructiveText,
         ]}
@@ -63,11 +65,19 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   login: { minHeight: heights.loginButton },
+  compact: {
+    minHeight: 32,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 0,
+    borderRadius: radius.pill,
+    alignSelf: 'flex-start',
+  },
   primary: { backgroundColor: colors.primary },
   secondary: { borderWidth: 1, borderColor: colors.border },
   ghost: {},
   destructive: { borderWidth: 1, borderColor: colors.borderStrong },
   text: { color: colors.text, textAlign: 'center' },
+  compactText: { fontSize: 12, lineHeight: 16 },
   primaryText: { color: colors.background },
   destructiveText: { color: colors.error },
   primaryPressed: { backgroundColor: colors.primaryPressed },

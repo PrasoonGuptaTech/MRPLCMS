@@ -3,6 +3,7 @@ import LoginScreen from '../../features/auth/screens/LoginScreen';
 import ResetPasswordScreen from '../../features/auth/screens/ResetPasswordScreen';
 import SessionExpiredScreen from '../../features/auth/screens/SessionExpiredScreen';
 import { colors } from '../../shared/theme';
+import MainTabs from './MainTabs';
 import type { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -19,6 +20,11 @@ export default function RootNavigator() {
       <Stack.Screen
         name="SessionExpired"
         component={SessionExpiredScreen}
+        options={{ gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={MainTabs}
         options={{ gestureEnabled: false }}
       />
     </Stack.Navigator>

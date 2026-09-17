@@ -11,4 +11,5 @@ export type RootStackParamList = {
   Login: undefined;
   ResetPassword: undefined;
   SessionExpired: undefined;
+  Main: NavigatorScreenParams<RootTabParamList>;
 };
