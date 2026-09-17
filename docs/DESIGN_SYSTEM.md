@@ -9,7 +9,8 @@
   Entry, Sending Reset Link), Session Expired (Re-authenticate)
 - [Home screen flow](https://www.figma.com/design/C6Qd5yQZtr32pvcJeOgWhz/Figma-Practice?node-id=147-491) —
   Home (Loading State `147:184`, Unsaved Changes `147:227`, Published/Up-to-Date
-  `147:491`), a separate practice file reusing the same CMS 2026 tokens
+  `147:491`) and its bottom tab bar (`147:737`), a separate practice file reusing
+  the same CMS 2026 tokens
 
 ## First integration
 
@@ -31,10 +32,10 @@ Authentication and password recovery services are not implemented. The password
 field checks input against the literal demo value "portfolio" — the exact string
 called out in the Figma "Invalid Password" state — purely to reproduce that
 error state and its `Sign in` happy path. Matching it resets the stack straight
-into `Main` (`MainTabs`, the Home/Profile tab navigator) so the rest of the app
-is reachable without a real backend; do not treat the demo password or this
-unconditional navigation as real authentication — connect a real session
-service before this path is production-ready.
+into `Main` (`MainTabs`, the Home/Projects/Media/More tab navigator) so the
+rest of the app is reachable without a real backend; do not treat the demo
+password or this unconditional navigation as real authentication — connect a
+real session service before this path is production-ready.
 
 "Forgot password?" opens `ResetPasswordScreen`. Submitting a valid email shows a
 `Sending…` loading state on the button and then the same "Password recovery
@@ -66,6 +67,15 @@ existing `default`/`login` sizes. New tokens (`successBackground`,
 `successBorder`, `avatar`, `skeleton`) extend the palette for the status
 banner, avatar chips, and skeleton blocks.
 
+`MainTabs` reproduces the Home screen's bottom tab bar (Figma `147:737`) as
+`CustomTabBar`: a translucent dark bar (`rgba(10, 10, 11, 0.95)` over a
+hairline `elevated` top border) with four tabs — Home, Projects, Media, and
+More — each a tinted icon and label, the active tab getting a bold label and a
+small pill indicator above its icon. Projects, Media, and More are new
+single-screen stub features (mirroring the existing Home stack pattern) since
+the Figma flow doesn't design their content yet. The Profile tab from the
+earlier two-tab scaffold isn't part of this design and was removed.
+
 ## Assets
 
 Mail and lock SVGs are exact exports from login nodes `1:338` and `1:347`.
@@ -77,6 +87,10 @@ The Home screen's icons (`Page*.svg`, `Action*.svg`, `Activity*.svg`,
 `ChevronDown.svg`, `Search.svg`) and `ProjectThumbnail.png` are exact exports
 from the Home Screen flow nodes above; `ProjectThumbnail.png` was downscaled
 from its 1200×1200 source export to 128×128 since it only renders at 32px.
+The bottom tab bar icons (`Tab*.svg`) are exact exports from `147:737`,
+re-pointed to `fill="currentColor"` (the Figma export hardcodes each icon's
+then-current tint) so `CustomTabBar` can recolor them for the active/inactive
+state instead of shipping separate assets per state.
 The Figma mock's Achievements grid cell reuses the Certificates icon (no
 distinct icon was exported for it); the app reproduces that as-is rather than
 substituting a different glyph.

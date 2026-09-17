@@ -1,8 +1,12 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeIcon from '../../assets/svg/Home.svg';
+import {
+  createBottomTabNavigator,
+  type BottomTabBarProps,
+} from '@react-navigation/bottom-tabs';
 import HomeStackNavigator from '../../features/home/navigation/HomeStackNavigator';
-import ProfileStackNavigator from '../../features/profile/navigation/ProfileStackNavigator';
-import { colors, typography } from '../../shared/theme';
+import MediaStackNavigator from '../../features/media/navigation/MediaStackNavigator';
+import MoreStackNavigator from '../../features/more/navigation/MoreStackNavigator';
+import ProjectsStackNavigator from '../../features/projects/navigation/ProjectsStackNavigator';
+import CustomTabBar from './CustomTabBar';
 import type { RootTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -11,34 +15,34 @@ const tabScreenOptions = {
   headerShown: false,
   lazy: true,
   freezeOnBlur: true,
-  tabBarActiveTintColor: colors.primary,
-  tabBarInactiveTintColor: colors.muted,
-  tabBarLabelStyle: typography.tabLabel,
 } as const;
 
-const homeTabOptions = {
-  tabBarLabel: 'Dashboard',
-  tabBarIcon: HomeTabIcon,
-} as const;
-
-const profileTabOptions = { tabBarLabel: 'Profile' } as const;
-
-function HomeTabIcon({ color }: { color: string }) {
-  return <HomeIcon width={18} height={18} color={color} />;
+function renderTabBar(props: BottomTabBarProps) {
+  return <CustomTabBar {...props} />;
 }
 
 export default function MainTabs() {
   return (
-    <Tab.Navigator screenOptions={tabScreenOptions}>
+    <Tab.Navigator screenOptions={tabScreenOptions} tabBar={renderTabBar}>
       <Tab.Screen
         name="HomeTab"
         component={HomeStackNavigator}
-        options={homeTabOptions}
+        options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen
-        name="ProfileTab"
-        component={ProfileStackNavigator}
-        options={profileTabOptions}
+        name="ProjectsTab"
+        component={ProjectsStackNavigator}
+        options={{ tabBarLabel: 'Projects' }}
+      />
+      <Tab.Screen
+        name="MediaTab"
+        component={MediaStackNavigator}
+        options={{ tabBarLabel: 'Media' }}
+      />
+      <Tab.Screen
+        name="MoreTab"
+        component={MoreStackNavigator}
+        options={{ tabBarLabel: 'More' }}
       />
     </Tab.Navigator>
   );
