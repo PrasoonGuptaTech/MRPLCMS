@@ -6,7 +6,7 @@
 - [Design system](https://www.figma.com/design/LIK3D30I3NxjancTZeDmS4/CMS-2026?node-id=1-2)
 - [Admin Login — Default](https://www.figma.com/design/LIK3D30I3NxjancTZeDmS4/CMS-2026?node-id=1-312)
 - Onboarding flow — Admin Login (Default, Invalid Password), Reset Password (Email
-  Entry, Sending Reset Link)
+  Entry, Sending Reset Link), Session Expired (Re-authenticate)
 
 ## First integration
 
@@ -38,6 +38,14 @@ password or unconditional navigation as real authentication.
 unavailable" message as before, returning to the login screen — no email is
 actually sent.
 
+`SessionExpiredScreen` reproduces the "Session expired" state from the
+Information Architecture (Figma `147:13264`): reached after inactivity, it
+tells the user their unpublished drafts are still saved on the device and
+offers a single "Re-authenticate" action that resets the stack back to
+`LoginScreen`. There is no session or inactivity timer in this app yet — the
+screen is not wired to a live trigger and is reachable only by direct
+navigation until a real authenticated session exists to expire.
+
 ## Assets
 
 Mail and lock SVGs are exact exports from login nodes `1:338` and `1:347`.
@@ -55,6 +63,8 @@ A native rebuild is required after changing fonts.
 
 Run `npm run validate`. Component tests cover form validation, the demo-password
 error state, reset-password sending state, recovery messaging, secure password
-entry, and disabled/loading controls. The Maestro flows cover the launch screen
-and the full validation/recovery path through the reset password screen; run
-them against an installed app.
+entry, disabled/loading controls, and the session-expired re-authenticate
+reset. The Maestro flows cover the launch screen and the full validation/recovery
+path through the reset password screen; run them against an installed app. The
+session-expired screen has no live trigger yet, so it is not part of the Maestro
+flow.

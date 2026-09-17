@@ -10,4 +10,5 @@ export type RootTabParamList = {
 export type RootStackParamList = {
   Login: undefined;
   ResetPassword: undefined;
+  SessionExpired: undefined;
 };
