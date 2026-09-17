@@ -1,10 +1,14 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
 
 export type HomeStackParamList = { Home: undefined };
-export type ProfileStackParamList = { Profile: undefined };
+export type ProjectsStackParamList = { Projects: undefined };
+export type MediaStackParamList = { Media: undefined };
+export type MoreStackParamList = { More: undefined };
 export type RootTabParamList = {
   HomeTab: NavigatorScreenParams<HomeStackParamList>;
-  ProfileTab: NavigatorScreenParams<ProfileStackParamList>;
+  ProjectsTab: NavigatorScreenParams<ProjectsStackParamList>;
+  MediaTab: NavigatorScreenParams<MediaStackParamList>;
+  MoreTab: NavigatorScreenParams<MoreStackParamList>;
 };
 
 export type RootStackParamList = {
